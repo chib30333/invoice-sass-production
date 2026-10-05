@@ -32,6 +32,11 @@ cd frontend
 npm install
 npm run dev                     # http://localhost:3000 — /api/* is proxied to the backend
 ```
+Or, once both are installed, start them together from the repo root (Windows venv layout):
+```bash
+npm install    # once, installs concurrently
+npm run dev    # api + web in one terminal; Ctrl+C stops both
+```
 The first screen is the landing page. "Try it as a guest" creates a throwaway account so the editor works without signing up; register later to keep data.
 
 ### Start from the original invoice
