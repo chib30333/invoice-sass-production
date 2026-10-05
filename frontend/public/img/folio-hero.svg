@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 450" width="500" height="450" role="img" aria-label="Folio tossing a coin, sparkles around">
+  <ellipse cx="250" cy="420" rx="160" ry="14" fill="#15130F" opacity=".10"/>
+  <g transform="translate(160 90) scale(1.0)">
+    <path d="M14 0h118l40 40v242a14 14 0 0 1-14 14H14A14 14 0 0 1 0 282V14A14 14 0 0 1 14 0z" fill="#FFFFFF"/>
+    <path d="M132 0v40h40z" fill="#EDE9E1"/>
+    <path d="M132 0l40 40" stroke="#D3CEC3" stroke-width="2" stroke-linecap="round"/>
+    <path d="M4 240v42a10 10 0 0 0 10 10h118a10 10 0 0 0 10-10v-60c-30 26-90 36-138 18z" fill="#F4F1EA"/>
+    <ellipse cx="54" cy="120" rx="9" ry="12" fill="#15130F"/><ellipse cx="112" cy="120" rx="9" ry="12" fill="#15130F"/><circle cx="57" cy="115" r="3" fill="#FFFFFF"/><circle cx="115" cy="115" r="3" fill="#FFFFFF"/><path d="M56 154c8 26 46 26 54 0z" fill="#15130F"/><path d="M66 166c12 8 22 8 34 0" fill="#F2B8A2"/><ellipse cx="34" cy="150" rx="10" ry="6" fill="#F2B8A2"/><ellipse cx="132" cy="150" rx="10" ry="6" fill="#F2B8A2"/>
+    <path d="M30 60h36M30 74h60" stroke="#D3CEC3" stroke-width="4" stroke-linecap="round"/>
+  </g>
+  <g stroke="#15130F" stroke-width="7" stroke-linecap="round"><path d="M206 386v30M286 386v30"/></g>
+  <path d="M186 418h32M272 418h32" stroke="#15130F" stroke-width="9" stroke-linecap="round"/>
+  <g stroke="#15130F" stroke-width="7" stroke-linecap="round" fill="none"><path d="M160 250c-30 6-50-16-54-56"/><path d="M332 220c34-30 36-60 20-96"/></g>
+  <circle cx="104" cy="192" r="14" fill="#15130F"/><circle cx="352" cy="122" r="14" fill="#15130F"/>
+  <g transform="translate(380 70)"><circle r="34" fill="#15130F"/><circle r="26" fill="none" stroke="#5C5750" stroke-width="3"/><path d="M-8-12h16M-8 0h16M-8 12h16" stroke="#F4F1EA" stroke-width="4" stroke-linecap="round"/></g>
+  <g fill="#2F4BE0"><path d="M70 90l5 14 14 5-14 5-5 14-5-14-14-5 14-5z"/><path d="M440 160l4 10 10 4-10 4-4 10-4-10-10-4 10-4z"/><circle cx="60" cy="200" r="5"/><circle cx="430" cy="250" r="6"/></g>
+</svg>

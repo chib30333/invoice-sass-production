@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 420" width="480" height="420" role="img" aria-label="Folio, a smiling sheet of paper, waving and holding a paid invoice">
+  <ellipse cx="236" cy="392" rx="130" ry="14" fill="#15130F" opacity=".10"/>
+  <g transform="translate(150 60)">
+    <path d="M14 0h118l40 40v242a14 14 0 0 1-14 14H14A14 14 0 0 1 0 282V14A14 14 0 0 1 14 0z" fill="#FFFFFF"/>
+    <path d="M132 0v40h40z" fill="#EDE9E1"/>
+    <path d="M132 0l40 40" stroke="#D3CEC3" stroke-width="2" stroke-linecap="round"/>
+    <path d="M4 240v42a10 10 0 0 0 10 10h118a10 10 0 0 0 10-10v-60c-30 26-90 36-138 18z" fill="#F4F1EA"/>
+    <ellipse cx="54" cy="120" rx="9" ry="12" fill="#15130F"/>
+    <ellipse cx="112" cy="120" rx="9" ry="12" fill="#15130F"/>
+    <circle cx="57" cy="115" r="3" fill="#FFFFFF"/>
+    <circle cx="115" cy="115" r="3" fill="#FFFFFF"/>
+    <path d="M60 158c14 18 32 18 46 0" stroke="#15130F" stroke-width="5" stroke-linecap="round" fill="none"/>
+    <ellipse cx="34" cy="150" rx="10" ry="6" fill="#F2B8A2"/>
+    <ellipse cx="132" cy="150" rx="10" ry="6" fill="#F2B8A2"/>
+    <path d="M30 60h36M30 74h60" stroke="#D3CEC3" stroke-width="4" stroke-linecap="round"/>
+  </g>
+  <g stroke="#15130F" stroke-width="7" stroke-linecap="round" fill="none">
+    <path d="M150 230c-30 6-52-14-56-52"/>
+    <path d="M322 236c30 2 42 24 40 52"/>
+  </g>
+  <circle cx="94" cy="174" r="14" fill="#15130F"/>
+  <g transform="translate(348 272) rotate(-12)">
+    <rect x="-34" y="-44" width="68" height="88" rx="8" fill="#FFFFFF" stroke="#D3CEC3" stroke-width="3"/>
+    <path d="M-20-24h26M-20-12h34M-20 0h20" stroke="#D3CEC3" stroke-width="4" stroke-linecap="round"/>
+    <circle cx="14" cy="22" r="14" fill="#1D7A4F"/>
+    <path d="M7 22l5 5 10-11" stroke="#FFFFFF" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  </g>
+  <g stroke="#15130F" stroke-width="7" stroke-linecap="round">
+    <path d="M196 356v30M276 356v30"/>
+  </g>
+  <path d="M176 388h32M262 388h32" stroke="#15130F" stroke-width="9" stroke-linecap="round"/>
+  <g fill="#2F4BE0">
+    <path d="M70 70l5 14 14 5-14 5-5 14-5-14-14-5 14-5z"/>
+    <path d="M410 110l4 10 10 4-10 4-4 10-4-10-10-4 10-4z"/>
+    <circle cx="420" cy="60" r="5"/>
+  </g>
+</svg>

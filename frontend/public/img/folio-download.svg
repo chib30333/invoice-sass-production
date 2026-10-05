@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 420" width="480" height="420" role="img" aria-label="Folio sliding into a download tray, delighted">
+  <ellipse cx="250" cy="396" rx="150" ry="14" fill="#15130F" opacity=".10"/>
+  <path d="M110 300h280v56a16 16 0 0 1-16 16H126a16 16 0 0 1-16-16z" fill="#15130F"/>
+  <path d="M96 300h308" stroke="#15130F" stroke-width="10" stroke-linecap="round"/>
+  <g transform="rotate(14 250 190)"><g transform="translate(170 40) scale(1.0)">
+    <path d="M14 0h118l40 40v242a14 14 0 0 1-14 14H14A14 14 0 0 1 0 282V14A14 14 0 0 1 14 0z" fill="#FFFFFF"/>
+    <path d="M132 0v40h40z" fill="#EDE9E1"/>
+    <path d="M132 0l40 40" stroke="#D3CEC3" stroke-width="2" stroke-linecap="round"/>
+    <path d="M4 240v42a10 10 0 0 0 10 10h118a10 10 0 0 0 10-10v-60c-30 26-90 36-138 18z" fill="#F4F1EA"/>
+    <path d="M44 124c4-10 16-10 20 0M102 124c4-10 16-10 20 0" stroke="#15130F" stroke-width="5" stroke-linecap="round" fill="none"/><path d="M56 154c8 26 46 26 54 0z" fill="#15130F"/><path d="M66 166c12 8 22 8 34 0" fill="#F2B8A2"/><ellipse cx="34" cy="150" rx="10" ry="6" fill="#F2B8A2"/><ellipse cx="132" cy="150" rx="10" ry="6" fill="#F2B8A2"/>
+    <path d="M30 60h36M30 74h60" stroke="#D3CEC3" stroke-width="4" stroke-linecap="round"/>
+  </g></g>
+  <g stroke="#15130F" stroke-width="7" stroke-linecap="round" fill="none"><path d="M172 150c-36-6-54 20-44 58"/><path d="M340 120c34-18 60 4 58 44"/></g>
+  <circle cx="130" cy="210" r="14" fill="#15130F"/><circle cx="398" cy="166" r="14" fill="#15130F"/>
+  <g stroke="#2F4BE0" stroke-width="6" stroke-linecap="round" fill="none"><path d="M64 120v30M48 136l16 14 16-14"/><path d="M430 60v30M414 76l16 14 16-14"/></g>
+  <g stroke="#D3CEC3" stroke-width="5" stroke-linecap="round"><path d="M84 230h22M76 250h30M400 240h24"/></g>
+  <path d="M250 330l-3 8" stroke="#15130F" stroke-width="7" stroke-linecap="round"/>
+</svg>

@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 420" width="480" height="420" role="img" aria-label="Three Folio characters of different sizes side by side">
+  <ellipse cx="240" cy="396" rx="190" ry="14" fill="#15130F" opacity=".10"/>
+  <g transform="translate(40 160) scale(0.7)">
+    <path d="M14 0h118l40 40v242a14 14 0 0 1-14 14H14A14 14 0 0 1 0 282V14A14 14 0 0 1 14 0z" fill="#FFFFFF"/>
+    <path d="M132 0v40h40z" fill="#EDE9E1"/>
+    <path d="M132 0l40 40" stroke="#D3CEC3" stroke-width="2" stroke-linecap="round"/>
+    <path d="M4 240v42a10 10 0 0 0 10 10h118a10 10 0 0 0 10-10v-60c-30 26-90 36-138 18z" fill="#F4F1EA"/>
+    <path d="M44 124c4-10 16-10 20 0M102 124c4-10 16-10 20 0" stroke="#15130F" stroke-width="5" stroke-linecap="round" fill="none"/><path d="M60 158c14 18 32 18 46 0" stroke="#15130F" stroke-width="5" stroke-linecap="round" fill="none"/><ellipse cx="34" cy="150" rx="10" ry="6" fill="#F2B8A2"/><ellipse cx="132" cy="150" rx="10" ry="6" fill="#F2B8A2"/>
+    <path d="M30 60h36M30 74h60" stroke="#D3CEC3" stroke-width="4" stroke-linecap="round"/>
+  </g>
+  <g transform="translate(300 180) scale(0.62)">
+    <path d="M14 0h118l40 40v242a14 14 0 0 1-14 14H14A14 14 0 0 1 0 282V14A14 14 0 0 1 14 0z" fill="#FFFFFF"/>
+    <path d="M132 0v40h40z" fill="#EDE9E1"/>
+    <path d="M132 0l40 40" stroke="#D3CEC3" stroke-width="2" stroke-linecap="round"/>
+    <path d="M4 240v42a10 10 0 0 0 10 10h118a10 10 0 0 0 10-10v-60c-30 26-90 36-138 18z" fill="#F4F1EA"/>
+    <ellipse cx="54" cy="120" rx="9" ry="12" fill="#15130F"/><ellipse cx="112" cy="120" rx="9" ry="12" fill="#15130F"/><circle cx="57" cy="115" r="3" fill="#FFFFFF"/><circle cx="115" cy="115" r="3" fill="#FFFFFF"/><ellipse cx="83" cy="162" rx="9" ry="11" fill="#15130F"/><ellipse cx="34" cy="150" rx="10" ry="6" fill="#F2B8A2"/><ellipse cx="132" cy="150" rx="10" ry="6" fill="#F2B8A2"/>
+    <path d="M30 60h36M30 74h60" stroke="#D3CEC3" stroke-width="4" stroke-linecap="round"/>
+  </g>
+  <g transform="translate(150 60) scale(1.0)">
+    <path d="M14 0h118l40 40v242a14 14 0 0 1-14 14H14A14 14 0 0 1 0 282V14A14 14 0 0 1 14 0z" fill="#FFFFFF"/>
+    <path d="M132 0v40h40z" fill="#EDE9E1"/>
+    <path d="M132 0l40 40" stroke="#D3CEC3" stroke-width="2" stroke-linecap="round"/>
+    <path d="M4 240v42a10 10 0 0 0 10 10h118a10 10 0 0 0 10-10v-60c-30 26-90 36-138 18z" fill="#F4F1EA"/>
+    <ellipse cx="54" cy="120" rx="9" ry="12" fill="#15130F"/><ellipse cx="112" cy="120" rx="9" ry="12" fill="#15130F"/><circle cx="57" cy="115" r="3" fill="#FFFFFF"/><circle cx="115" cy="115" r="3" fill="#FFFFFF"/><path d="M56 154c8 26 46 26 54 0z" fill="#15130F"/><path d="M66 166c12 8 22 8 34 0" fill="#F2B8A2"/><ellipse cx="34" cy="150" rx="10" ry="6" fill="#F2B8A2"/><ellipse cx="132" cy="150" rx="10" ry="6" fill="#F2B8A2"/>
+    <path d="M30 60h36M30 74h60" stroke="#D3CEC3" stroke-width="4" stroke-linecap="round"/>
+  </g>
+  <g stroke="#15130F" stroke-width="7" stroke-linecap="round"><path d="M196 356v30M276 356v30"/></g>
+  <path d="M176 388h32M262 388h32" stroke="#15130F" stroke-width="9" stroke-linecap="round"/>
+  <g stroke="#15130F" stroke-width="7" stroke-linecap="round" fill="none"><path d="M150 236c-26 10-40-6-44-36"/><path d="M322 230c26 10 40-6 44-36"/></g>
+  <circle cx="106" cy="196" r="13" fill="#15130F"/><circle cx="366" cy="190" r="13" fill="#15130F"/>
+  <path d="M60 60l5 14 14 5-14 5-5 14-5-14-14-5 14-5z" fill="#2F4BE0"/>
+  <path d="M430 100l4 10 10 4-10 4-4 10-4-10-10-4 10-4z" fill="#1D7A4F"/>
+</svg>

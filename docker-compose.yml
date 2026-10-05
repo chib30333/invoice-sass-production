@@ -1,0 +1,18 @@
+services:
+  api:
+    build: ./backend
+    environment:
+      - DATABASE_URL=sqlite:////data/invoice_studio.db
+      - SECRET_KEY=${SECRET_KEY:-change-me}
+      - CORS_ORIGINS=http://localhost:3000
+    volumes:
+      - api-data:/data
+    ports: ["8000:8000"]
+  web:
+    build: ./frontend
+    environment:
+      - API_URL=http://api:8000
+    ports: ["3000:3000"]
+    depends_on: [api]
+volumes:
+  api-data:
