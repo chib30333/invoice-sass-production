@@ -8,12 +8,13 @@ import { addDays, money, newKey, num, toIso, totals, validate, withKeys, type Dr
 import { Icon } from "@/components/Icon";
 import { Badge, Dialog, Field, Input, Skeleton } from "@/components/ui";
 import { LineItems } from "@/components/LineItems";
-import { Desk, PdfSheet } from "@/components/PdfSheet";
+import { Desk, PdfSheet, usePreviewZoom, ZoomBar } from "@/components/PdfSheet";
 import { CommandPalette } from "@/components/CommandPalette";
 import { useCountUp } from "@/components/CountUp";
 import { useToast } from "@/components/Toast";
 import { ThemeToggle } from "@/components/ThemeToggle";
 
+const FLAT = { rx: 0, ry: 0, rz: 0 }; // zoomed in, the sheet lies flat so it reads like a page
 const DEBOUNCE = 500;   // preview re-render
 const AUTOSAVE = 1400;  // PUT to the API after the last keystroke
 
@@ -30,6 +31,7 @@ export default function EditorPage() {
   const [dl, setDl] = useState<"idle" | "prep" | "done">("idle");
   const [pct, setPct] = useState(0);
   const [confirm, setConfirm] = useState(false);
+  const [zoom, setZoom] = usePreviewZoom();
   const timers = useRef<{ preview?: number; save?: number }>({});
   const latest = useRef<Draft | null>(null);
   latest.current = draft;
@@ -229,18 +231,16 @@ export default function EditorPage() {
           </div>
         </section>
 
-        <Desk>
-          {(tilt) => (
-            <>
-              <div style={{ position: "absolute", top: 20, left: 24, right: 24, display: "flex", justifyContent: "space-between", alignItems: "center", pointerEvents: "none" }}>
-                <div className="glass pill" style={{ height: 28, padding: "0 12px", border: "1px solid var(--line)", color: "var(--fg-2)", boxShadow: "var(--sh-1)" }}>
-                  <span className={updating ? "dot" : ""} style={{ width: 7, height: 7, borderRadius: "50%", background: updating ? "var(--accent)" : "var(--paid)" }} />{updating ? "Updating…" : "Live preview"}
-                </div>
-                <a className="btn btn-secondary glass" style={{ height: 36, fontSize: 13, pointerEvents: "auto" }} href={`/api/invoices/${draft.id}/pdf?inline=true`} target="_blank" rel="noreferrer" onClick={(e) => { e.preventDefault(); openPdf(); }}><Icon name="fullscreen" size={15} strokeWidth={2} />Open PDF</a>
-              </div>
-              <PdfSheet draft={draft} settings={settings} client={client} updating={updating} highlight={hl} flying={dl === "done"} tilt={tilt} />
-            </>
-          )}
+        <Desk overlay={<>
+          <div style={{ position: "absolute", top: 20, left: 24, right: 24, display: "flex", justifyContent: "space-between", alignItems: "center", pointerEvents: "none" }}>
+            <div className="glass pill" style={{ height: 28, padding: "0 12px", border: "1px solid var(--line)", color: "var(--fg-2)", boxShadow: "var(--sh-1)" }}>
+              <span className={updating ? "dot" : ""} style={{ width: 7, height: 7, borderRadius: "50%", background: updating ? "var(--accent)" : "var(--paid)" }} />{updating ? "Updating…" : "Live preview"}
+            </div>
+            <a className="btn btn-secondary glass" style={{ height: 36, fontSize: 13, pointerEvents: "auto" }} href={`/api/invoices/${draft.id}/pdf?inline=true`} target="_blank" rel="noreferrer" onClick={(e) => { e.preventDefault(); openPdf(); }}><Icon name="fullscreen" size={15} strokeWidth={2} />Open PDF</a>
+          </div>
+          <ZoomBar zoom={zoom} onZoom={setZoom} />
+        </>}>
+          {(tilt) => <PdfSheet draft={draft} settings={settings} client={client} updating={updating} highlight={hl} flying={dl === "done"} tilt={zoom > 1 ? FLAT : tilt} zoom={zoom} />}
         </Desk>
       </div>
 

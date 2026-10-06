@@ -80,7 +80,7 @@ export function SettingsSections({ form, set, clients, sections }: { form: Setti
             </Field>
           </div>
           <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 16, paddingTop: 6, borderTop: "1px solid var(--line)" }}>
-            <div><div style={{ fontWeight: 600 }}>Show payment link</div><div className="help">Prints “Pay {total} via link: …” when an invoice has one.</div></div>
+            <div><div style={{ fontWeight: 600 }}>Show payment link</div><div className="help">Prints “Pay {"{total}"} via link: …” when an invoice has one.</div></div>
             <button type="button" className="toggle" role="switch" aria-checked={form.show_payment_link} aria-label="Show payment link" onClick={() => set("show_payment_link", !form.show_payment_link)} />
           </div>
         </section>

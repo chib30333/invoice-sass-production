@@ -102,6 +102,42 @@ button, input, select, textarea { font: inherit; color: inherit; }
 .row { display: grid; grid-template-columns: 120px minmax(0, 1.6fr) 110px 110px 110px 140px; gap: 16px; align-items: center; height: 56px; padding: 0 20px; color: var(--fg); text-decoration: none; border-top: 1px solid var(--line); transition: background var(--d-2) var(--ease-out); }
 .row:hover { background: var(--sunken); }
 .row:hover .arrow { opacity: 1; transform: none; }
+/* DataTable (components/DataTable.tsx) */
+.dt-card { overflow: hidden; }
+.dt-scroll { overflow-x: auto; }
+.dt { width: 100%; border-collapse: collapse; font-size: 14px; }
+.dt th { height: 40px; padding: 0 12px; text-align: left; font-size: 12px; font-weight: 600; color: var(--fg-3); white-space: nowrap; }
+.dt td { height: 56px; padding: 0 12px; border-top: 1px solid var(--line); color: var(--fg); }
+.dt th:first-child, .dt td:first-child { padding-left: 20px; }
+.dt th:last-child, .dt td:last-child { padding-right: 20px; }
+.dt .r { text-align: right; }
+.dt td:not(.grow) { white-space: nowrap; }
+.dt .grow { max-width: 0; } /* the one width-less column: it gets the leftover space, and max-width: 0 lets its text ellipsize */
+.dt tbody tr { transition: background var(--d-2) var(--ease-out); }
+.dt tbody tr.click { cursor: pointer; }
+.dt tbody tr:hover { background: var(--sunken); }
+.dt tbody tr.sel { background: var(--accent-soft); }
+.dt-check-col { width: 44px; }
+.dt-check { width: 16px; height: 16px; margin: 0; vertical-align: middle; accent-color: var(--accent); cursor: pointer; }
+.dt-act-col { width: 52px; text-align: right; }
+.dt-remove { width: 32px; height: 32px; }
+@media (hover: hover) { .dt-remove { opacity: 0; } .dt tr:hover .dt-remove, .dt-remove:focus-visible { opacity: 1; } }
+.dt-sort { display: inline-flex; align-items: center; vertical-align: middle; gap: 4px; padding: 0; border: 0; background: none; font: inherit; color: inherit; cursor: pointer; }
+.dt-sort:hover, .dt-sort.on { color: var(--fg); }
+.dt-sort-ico { display: inline-flex; opacity: 0; transition: opacity var(--d-2); }
+.dt-sort:hover .dt-sort-ico, .dt-sort.on .dt-sort-ico { opacity: 1; }
+.dt .r .dt-sort { flex-direction: row-reverse; }
+.dt-empty { padding: 24px; text-align: center; color: var(--fg-3); font-size: 13px; }
+.dt-bulk { display: flex; align-items: center; gap: 14px; min-height: 48px; padding: 6px 20px; background: var(--accent-soft); border-bottom: 1px solid var(--line); font-size: 13px; }
+.dt-foot { display: flex; align-items: center; justify-content: flex-end; gap: 20px; flex-wrap: wrap; padding: 10px 20px; border-top: 1px solid var(--line); font-size: 13px; color: var(--fg-2); }
+.dt-size { display: inline-flex; align-items: center; gap: 8px; }
+.dt-size .select { width: auto; height: 32px; padding: 0 8px; font-size: 13px; }
+.dt-pages { display: flex; align-items: center; gap: 2px; }
+.dt-page { min-width: 32px; height: 32px; padding: 0 6px; display: inline-flex; align-items: center; justify-content: center; border: 0; border-radius: 8px; background: none; color: var(--fg-2); font-size: 13px; font-weight: 600; cursor: pointer; }
+.dt-page:hover:not(:disabled) { background: var(--sunken); color: var(--fg); }
+.dt-page.on { background: var(--fg); color: var(--bg); }
+.dt-page:disabled { opacity: .35; cursor: default; }
+.dt-gap { min-width: 20px; text-align: center; color: var(--fg-3); }
 .arrow { opacity: 0; transform: translateX(-4px); transition: opacity var(--d-2) var(--ease-out), transform var(--d-2) var(--ease-out); }
 .sk { display: block; background: linear-gradient(90deg, var(--sunken) 0%, var(--bg) 40%, var(--sunken) 80%); background-size: 200% 100%; animation: wave 1.6s linear infinite; border-radius: 6px; }
 @keyframes wave { from { background-position: 120% 0; } to { background-position: -80% 0; } }
@@ -120,9 +156,16 @@ button, input, select, textarea { font: inherit; color: inherit; }
 .item:hover { box-shadow: var(--sh-2); }
 .item.dragging { box-shadow: var(--sh-3); transform: rotate(1.5deg); opacity: .95; }
 @keyframes itemIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
-.desk { flex: 1; min-width: 0; display: flex; align-items: safe center; justify-content: center; padding: 56px 48px; position: relative; overflow: auto; perspective: 1400px;
+.desk { flex: 1; min-width: 0; display: flex; position: relative;
   background: radial-gradient(ellipse at 30% 20%, rgba(255,255,255,.55), rgba(255,255,255,0) 60%), url(/img/paper-texture.jpg) center/cover var(--sunken); }
 [data-theme="dark"] .desk { background: radial-gradient(ellipse at 30% 20%, rgba(138,156,255,.1), rgba(0,0,0,0) 60%) var(--sunken); }
+/* The sheet scrolls here when zoomed in; `safe` keeps its left/top edge reachable. The zoom bar floats in the bottom padding. */
+.desk-scroll { flex: 1; min-width: 0; display: flex; align-items: safe center; justify-content: safe center; padding: 56px 48px; position: relative; overflow: auto; perspective: 1400px; }
+.zoom-bar { position: absolute; left: 50%; bottom: 12px; transform: translateX(-50%); display: flex; align-items: center; gap: 6px; padding: 4px 6px; border: 1px solid var(--line); border-radius: 999px; box-shadow: var(--sh-1); z-index: 2; }
+.zoom-bar .btn-icon { width: 32px; height: 32px; }
+.zoom-bar input[type=range] { width: 220px; accent-color: var(--accent); cursor: pointer; }
+.zoom-pct { min-width: 52px; height: 32px; border: 0; border-radius: 999px; background: none; color: var(--fg-2); font-size: 12px; cursor: pointer; }
+.zoom-pct:hover { background: var(--line); color: var(--fg); }
 .ground { position: absolute; left: 50%; top: 50%; width: 420px; height: 120px; margin: 300px 0 0 -170px; border-radius: 50%; background: radial-gradient(ellipse at center, rgba(20,18,14,.34), rgba(20,18,14,0) 70%); filter: blur(14px); pointer-events: none; transition: transform var(--d-4) var(--ease-out), opacity var(--d-4) var(--ease-out); }
 .desk:hover .ground { opacity: .5; transform: scale(.92); }
 [data-theme="dark"] .ground { background: radial-gradient(ellipse at center, rgba(0,0,0,.9), rgba(0,0,0,0) 70%); }
@@ -182,6 +225,14 @@ button, input, select, textarea { font: inherit; color: inherit; }
   .tiles { grid-template-columns: 1fr; }
   .row { grid-template-columns: 110px minmax(0, 1fr) 110px; }
   .row .hide-m { display: none; }
+  .dt .hide-m { display: none; }
+  .dt th { width: auto !important; }
+  .dt .grow { width: 100%; }
+  .dt th, .dt td { padding: 0 6px; }
+  .dt th:first-child, .dt td:first-child { padding-left: 14px; }
+  .dt th:last-child, .dt td:last-child { padding-right: 14px; }
+  .dt-check-col { width: 32px; } .dt-act-col { width: 40px; }
+  .dt-foot { justify-content: space-between; gap: 12px; }
   .editor-body { flex-wrap: wrap; overflow: auto; }
   .panel { flex: 1 1 100%; border-right: 0; border-bottom: 1px solid var(--line); }
   .panel-scroll { overflow: visible; }

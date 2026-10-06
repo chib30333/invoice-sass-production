@@ -73,7 +73,7 @@ python -m app.sample sample-invoice.pdf                                   # INV-
 - **The invoice layout is the original one**: "Invoice #…", the To / Payment terms bars, an 8-column table (work period, quantity, price, amount, tax %, tax amount), Subtotal / Total tax / Total payment, your details and "Account details" pinned to the bottom of the last page, "Pay {total} via link: …", and a "1/2 for invoice #…" footer. Long invoices break between rows and repeat the table header.
 - **Descriptions**: Enter starts a new line; long lines wrap on their own and words are never hyphenated.
 - **Money** is computed in cents with tax per line (half-up rounding), identically in the browser and the API. The tax columns always print, also at 0 %.
-- **Clients** print as name + attention + address lines; the email field is for your records (put it in the address if it should print, like the original).
+- **Clients** print as name, attention, email, then the address lines (the email is skipped if the address already contains it).
 - **Statuses**: `sent` invoices past their due date flip to `overdue` on read; `paid` is set manually from the editor's status menu.
 - **Numbering**: `INV-{0000}` style format with `{YYYY}` support; numbers are assigned on create and never reused.
 - **Reduced motion** is honoured globally; the sheet is flat and the shimmer is off.

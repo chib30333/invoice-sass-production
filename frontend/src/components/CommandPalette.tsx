@@ -8,7 +8,7 @@ import { Icon } from "./Icon";
 
 interface Cmd { id: string; label: string; icon: string; kbd?: string; run: () => void; group: "Actions" | "Invoices" }
 
-/* ⌘K from anywhere in the app. Lists actions first, then invoices matched by number or client. */
+/* Ctrl+K from anywhere in the app. Lists actions first, then invoices matched by number or client. */
 export function CommandPalette({ onDownload }: { onDownload?: () => void }) {
   const router = useRouter();
   const [open, setOpen] = useState(false);
@@ -39,7 +39,7 @@ export function CommandPalette({ onDownload }: { onDownload?: () => void }) {
       { id: "settings", label: "Go to Settings", icon: "settings", kbd: "G S", group: "Actions", run: go("/settings") },
       { id: "home", label: "Go to Invoices", icon: "invoice", kbd: "G I", group: "Actions", run: go("/invoices") },
     ];
-    if (onDownload) actions.splice(1, 0, { id: "dl", label: "Download current PDF", icon: "download", kbd: "⌘ D", group: "Actions", run: () => { setOpen(false); onDownload(); } });
+    if (onDownload) actions.splice(1, 0, { id: "dl", label: "Download current PDF", icon: "download", kbd: "Ctrl+D", group: "Actions", run: () => { setOpen(false); onDownload(); } });
     const rows: Cmd[] = invoices.map((i) => ({ id: `inv${i.id}`, label: `${i.number} · ${i.client_name ?? "No client"} · ${money(i.total, i.currency)}`, icon: "invoice", group: "Invoices", run: go(`/invoices/${i.id}`) }));
     const ql = q.trim().toLowerCase();
     return [...actions, ...rows].filter((c) => !ql || c.label.toLowerCase().includes(ql));

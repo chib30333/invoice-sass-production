@@ -34,11 +34,11 @@ SETTINGS = {
 }
 FIRST_NUMBER = 17
 
-# The PDF prints the address lines under the client name; the email sits in them like on the original.
+# Under the client name the PDF prints attention, email, then the address lines: the same block as the original.
 CLIENT = {
     "name": "RADIIA",
-    "attention": "",
-    "address": "New York NY\njennifer@raiida.co\nUnited States of America\nNew York, 10036",
+    "attention": "New York NY",
+    "address": "United States of America\nNew York, 10036",
     "email": "jennifer@raiida.co",
 }
 

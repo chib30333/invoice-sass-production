@@ -51,13 +51,13 @@ function Row({ it, currency, periodErr, onChange, onRemove }: { it: LineItem; cu
           </div>
           <button className="btn btn-icon" aria-label="Remove line item" style={{ marginTop: 22 }} onClick={() => onRemove(k)}><Icon name="close" strokeWidth={2} /></button>
         </div>
-        <div style={{ display: "grid", gridTemplateColumns: "minmax(0,1fr) minmax(0,1fr) 68px 104px minmax(0,1fr)", gap: 10, alignItems: "end" }}>
+        <div style={{ display: "grid", gridTemplateColumns: "minmax(0,1fr) minmax(0,1fr) 68px 104px", gap: 10, alignItems: "end" }}>
           <Field label="Work from" htmlFor={`from-${k}`}><Input id={`from-${k}`} className="num" type="date" value={it.work_from ?? ""} onChange={(e) => onChange(k, { work_from: e.target.value || null })} style={{ padding: "0 8px", fontSize: 13 }} /></Field>
           <Field label="Work to" htmlFor={`to-${k}`}><Input id={`to-${k}`} className="num" type="date" invalid={periodErr} value={it.work_to ?? ""} onChange={(e) => onChange(k, { work_to: e.target.value || null })} style={{ padding: "0 8px", fontSize: 13 }} /></Field>
           <Field label="Qty" htmlFor={`qty-${k}`}><Input id={`qty-${k}`} className="num" type="number" min={0} step={1} value={it.quantity} onChange={(e) => onChange(k, { quantity: e.target.value }, "totals")} style={{ textAlign: "right" }} /></Field>
           <Field label="Unit price" htmlFor={`price-${k}`}><Input id={`price-${k}`} className="num" type="number" min={0} step={0.01} value={it.unit_price} onChange={(e) => onChange(k, { unit_price: e.target.value }, "totals")} style={{ textAlign: "right" }} /></Field>
-          <div className="field" style={{ alignItems: "flex-end" }}><span className="lbl">Amount</span><div className="num" style={{ height: 40, display: "flex", alignItems: "center", fontWeight: 600, fontSize: 15 }}>{money(amount(it), currency)}</div></div>
         </div>
+        <div style={{ display: "flex", justifyContent: "flex-end", alignItems: "baseline", gap: 10 }}><span className="lbl">Amount</span><span className="num" style={{ fontWeight: 600, fontSize: 15 }}>{money(amount(it), currency)}</span></div>
         {periodErr && <div className="warn"><Icon name="warning" size={14} strokeWidth={2} style={{ flex: "0 0 14px", marginTop: 1 }} /><span>The work period ends before it starts.</span></div>}
       </div>
     </article>

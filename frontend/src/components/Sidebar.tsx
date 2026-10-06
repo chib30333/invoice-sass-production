@@ -35,7 +35,7 @@ export function Sidebar() {
         <button className="btn btn-secondary" style={{ justifyContent: "space-between", fontWeight: 400, color: "var(--fg-2)", width: "100%", padding: "0 12px" }}
           onClick={() => window.dispatchEvent(new KeyboardEvent("keydown", { key: "k", metaKey: true }))}>
           <span style={{ display: "inline-flex", alignItems: "center", gap: 8 }}><Icon name="search" />Search or jump to</span>
-          <span style={{ display: "inline-flex", gap: 4 }}><span className="kbd">⌘</span><span className="kbd">K</span></span>
+          <span style={{ display: "inline-flex", gap: 4 }}><span className="kbd">Ctrl</span>+<span className="kbd">K</span></span>
         </button>
         <div style={{ display: "flex", alignItems: "center", gap: 8, padding: "6px 8px", fontSize: 13, color: "var(--fg-3)" }}>
           <span style={{ width: 24, height: 24, borderRadius: "50%", background: "var(--accent-soft)", color: "var(--accent)", display: "inline-flex", alignItems: "center", justifyContent: "center", fontWeight: 700, fontSize: 11 }}>{initial}</span>

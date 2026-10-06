@@ -89,6 +89,15 @@ def _lines(text: str) -> list[str]:
     return [ln.rstrip() for ln in (text or "").splitlines() if ln.strip()]
 
 
+def client_lines(attention: str, email: str, address: str) -> list[str]:
+    """Under the client name: attention, email, then the address lines. The email is skipped if the address already has it."""
+    addr = _lines(address)
+    email = email.strip()
+    if email and email.lower() in (ln.strip().lower() for ln in addr):
+        email = ""
+    return [ln for ln in [attention.strip(), email] if ln] + addr
+
+
 def bank_lines(s: BusinessSettings) -> list[str]:
     pairs = [("Account holder", s.account_holder), ("Account number", s.account_number),
              ("Routing number", s.routing_number), ("IBAN", s.iban), ("SWIFT/BIC", s.bic), ("Bank", s.bank_name)]
@@ -101,7 +110,7 @@ def doc_from_models(inv: Invoice, s: BusinessSettings) -> InvoiceDoc:
         number=inv.number, issued_on=inv.issued_on, due_on=inv.due_on, currency=inv.currency, tax_rate=inv.tax_rate,
         payment_terms=f"Net {s.payment_terms_days} days",
         client_name=client.name if client else "",
-        client_lines=([client.attention.strip()] if client and client.attention.strip() else []) + _lines(client.address if client else ""),
+        client_lines=client_lines(client.attention, client.email, client.address) if client else [],
         seller_lines=[ln for ln in [s.business_name.strip(), *_lines(s.business_address), s.business_email.strip(), s.tax_id.strip()] if ln],
         bank_lines=bank_lines(s),
         items=[DocItem(i.description, i.work_from, i.work_to, i.quantity, i.unit_price) for i in inv.items],

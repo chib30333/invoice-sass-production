@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useRef, useState, type CSSProperties, type ReactNode } from "react";
 import type { Client, Settings } from "@/lib/types";
+import { Icon } from "./Icon";
 import { bankLines, fmtDate, fmtPeriod, fmtPlain, moneyPlain, totals, type Draft, URL_RE } from "@/lib/invoice";
 
 /* The live preview: the original INV-00017 layout in PDF points (1px = 1pt), scaled down to the sheet.
@@ -15,6 +16,14 @@ const DESC_TEXT_W = COLS.desc - 4 + 8; // may run 8pt into the empty side of "Wo
 const txt = (size: number, lh = 1.333, bold = false, extra?: CSSProperties): CSSProperties =>
   ({ fontSize: size, lineHeight: lh, fontWeight: bold ? 700 : 400, transform: `translateY(${((1.1997 - lh) / 2).toFixed(4)}em)`, ...extra });
 
+/* Under the client name: attention, email, then the address lines (same rule as client_lines in backend/app/pdf.py). */
+function clientBlock(attention: string, email: string, address: string) {
+  const addr = address.split("\n").map((l) => l.trim()).filter(Boolean);
+  const mail = email.trim();
+  const showMail = mail && !addr.some((l) => l.toLowerCase() === mail.toLowerCase());
+  return [attention.trim(), showMail ? mail : "", ...addr].filter(Boolean);
+}
+
 function Cell({ w, align = "center", head, children }: { w: number; align?: "left" | "center"; head?: boolean; children: ReactNode }) {
   return (
     <div style={{ flex: `0 0 ${w}px`, paddingLeft: align === "left" ? 4 : 0, paddingTop: head ? 4.1 : 0, textAlign: align }}>
@@ -23,9 +32,10 @@ function Cell({ w, align = "center", head, children }: { w: number; align?: "lef
   );
 }
 
-export function PdfSheet({ draft, settings, client, updating, highlight, flying, tilt }: {
-  draft: Draft; settings: Settings | null; client: Client | null; updating: boolean; highlight: string; flying: boolean; tilt: { rx: number; ry: number; rz: number };
+export function PdfSheet({ draft, settings, client, updating, highlight, flying, tilt, zoom = 1 }: {
+  draft: Draft; settings: Settings | null; client: Client | null; updating: boolean; highlight: string; flying: boolean; tilt: { rx: number; ry: number; rz: number }; zoom?: number;
 }) {
+  const k = K * zoom; // points → CSS px; the page is laid out again at each zoom, so text stays sharp
   const page = useRef<HTMLDivElement>(null);
   const [height, setHeight] = useState(PAGE_H);
   useEffect(() => {
@@ -39,7 +49,7 @@ export function PdfSheet({ draft, settings, client, updating, highlight, flying,
   const t = totals(draft.items, draft.tax_rate);
   const m = (v: number) => moneyPlain(v, cur);
   const showLink = !!draft.payment_link && URL_RE.test(draft.payment_link) && (settings?.show_payment_link ?? true);
-  const clientLines = client ? [client.attention, ...client.address.split("\n")].map((l) => l.trim()).filter(Boolean) : [];
+  const clientLines = client ? clientBlock(client.attention, client.email, client.address) : [];
   const seller = settings ? [settings.business_name, ...settings.business_address.split("\n"), settings.business_email, settings.tax_id].map((l) => l.trim()).filter(Boolean) : [];
   const bank = bankLines(settings);
   const pages = Math.max(1, Math.ceil((height - 0.5) / PAGE_H)); // the PDF repeats the table header per page; close enough for a label
@@ -49,8 +59,8 @@ export function PdfSheet({ draft, settings, client, updating, highlight, flying,
 
   return (
     <div className={cls} tabIndex={0} aria-label={`Invoice PDF, ${pages} page${pages === 1 ? "" : "s"}`}
-      style={{ height: height * K, transform: `perspective(1400px) rotateX(${tilt.rx}deg) rotateY(${tilt.ry}deg) rotateZ(${tilt.rz}deg) translateZ(30px)` }}>
-      <div ref={page} className="pdf-page" style={{ width: PAGE_W, minHeight: PAGE_H, transform: `scale(${K})` }}>
+      style={{ width: SHEET_W * zoom, minHeight: PAGE_H * k, height: height * k, transform: `perspective(1400px) rotateX(${tilt.rx}deg) rotateY(${tilt.ry}deg) rotateZ(${tilt.rz}deg) translateZ(30px)` }}>
+      <div ref={page} className="pdf-page" style={{ width: PAGE_W, minHeight: PAGE_H, transform: `scale(${k})` }}>
         <div className={hl("header")}>
           <div style={txt(18.75, 1.333, true, { marginLeft: 20 })}>Invoice #{draft.number}</div>
           <div style={{ display: "flex", marginTop: 36.2 }}>
@@ -141,7 +151,7 @@ function TotalRow({ label, value, rule }: { label: string; value: string; rule?:
 }
 
 /* Parallax desk: the sheet rests in a sculptural pose and leans toward the pointer. */
-export function Desk({ children, pose = 1 }: { children: (tilt: { rx: number; ry: number; rz: number }) => React.ReactNode; pose?: number }) {
+export function Desk({ children, pose = 1, overlay }: { children: (tilt: { rx: number; ry: number; rz: number }) => React.ReactNode; pose?: number; overlay?: React.ReactNode }) {
   const ref = useRef<HTMLDivElement>(null);
   const [t, setT] = useState({ x: 0, y: 0 });
   const base = { rx: 9 * pose, ry: -12 * pose, rz: -1.5 * pose };
@@ -161,8 +171,40 @@ export function Desk({ children, pose = 1 }: { children: (tilt: { rx: number; ry
   }, []);
   return (
     <section ref={ref} className="desk" aria-label="Live PDF preview">
-      <div className="ground" aria-hidden="true" />
-      {children({ rx: +(base.rx + t.y).toFixed(2), ry: +(base.ry + t.x).toFixed(2), rz: base.rz })}
+      {/* The sheet scrolls inside; the overlay (zoom bar) stays put. */}
+      <div className="desk-scroll">
+        <div className="ground" aria-hidden="true" />
+        {children({ rx: +(base.rx + t.y).toFixed(2), ry: +(base.ry + t.x).toFixed(2), rz: base.rz })}
+      </div>
+      {overlay}
     </section>
+  );
+}
+
+/* Preview zoom: 50–250 %, remembered in this browser. */
+const ZOOM_MIN = 0.5, ZOOM_MAX = 2.5, ZOOM_STEP = 0.1, ZOOM_KEY = "invoice-studio:preview-zoom";
+const clampZoom = (z: number) => Math.min(ZOOM_MAX, Math.max(ZOOM_MIN, Math.round(z * 10) / 10));
+
+export function usePreviewZoom() {
+  const [zoom, setZoomState] = useState(1);
+  useEffect(() => {
+    try { const z = Number(localStorage.getItem(ZOOM_KEY)); if (z) setZoomState(clampZoom(z)); } catch { /* storage unavailable */ }
+  }, []);
+  const setZoom = (z: number) => {
+    const v = clampZoom(z); setZoomState(v);
+    try { localStorage.setItem(ZOOM_KEY, String(v)); } catch { /* storage unavailable */ }
+  };
+  return [zoom, setZoom] as const;
+}
+
+export function ZoomBar({ zoom, onZoom }: { zoom: number; onZoom: (z: number) => void }) {
+  const pct = Math.round(zoom * 100);
+  return (
+    <div className="zoom-bar glass" role="group" aria-label="Preview zoom">
+      <button type="button" className="btn btn-icon" aria-label="Zoom out" disabled={zoom <= ZOOM_MIN} onClick={() => onZoom(zoom - ZOOM_STEP)}><Icon name="minus" size={15} strokeWidth={2} /></button>
+      <input type="range" aria-label="Zoom" min={ZOOM_MIN * 100} max={ZOOM_MAX * 100} step={ZOOM_STEP * 100} value={pct} onChange={(e) => onZoom(Number(e.target.value) / 100)} />
+      <button type="button" className="btn btn-icon" aria-label="Zoom in" disabled={zoom >= ZOOM_MAX} onClick={() => onZoom(zoom + ZOOM_STEP)}><Icon name="plus" size={15} strokeWidth={2} /></button>
+      <button type="button" className="zoom-pct num" title="Reset to 100%" onClick={() => onZoom(1)}>{pct}%</button>
+    </div>
   );
 }
