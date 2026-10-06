@@ -1,5 +1,5 @@
 "use client";
-import { createContext, useCallback, useContext, useRef, useState } from "react";
+import { createContext, useCallback, useContext, useMemo, useRef, useState } from "react";
 import { Icon } from "./Icon";
 
 interface Toast { id: number; text: string; kind: "success" | "error" | "info"; action?: { label: string; onClick: () => void }; ttl: number }
@@ -17,9 +17,11 @@ export function ToastProvider({ children }: { children: React.ReactNode }) {
     setToasts((prev) => [...prev.slice(-2), { ...t, id, ttl }]);
     if (ttl) setTimeout(() => dismiss(id), ttl);
   }, [dismiss]);
+  // Stable value: pages list `toast` in effect deps (the editor reloads the invoice on change), so a new object per toast would refetch.
+  const api = useMemo(() => ({ push }), [push]);
 
   return (
-    <Ctx.Provider value={{ push }}>
+    <Ctx.Provider value={api}>
       {children}
       <div className="toasts" aria-live="polite">
         {toasts.map((t) => (
