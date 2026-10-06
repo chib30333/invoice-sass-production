@@ -75,8 +75,8 @@ export default function ClientsPage() {
             )}
             <Field label="Company name" htmlFor="c-name"><Input id="c-name" required value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} /></Field>
             <Field label={<>Attention line <span style={{ fontWeight: 400, color: "var(--fg-3)" }}>· optional</span></>} htmlFor="c-attn"><Input id="c-attn" value={form.attention} onChange={(e) => setForm({ ...form, attention: e.target.value })} /></Field>
-            <Field label="Address" htmlFor="c-addr" help="Printed under the name, one line per row, exactly as written. Add the email here too if it should print."><Textarea id="c-addr" rows={4} value={form.address} onChange={(e) => setForm({ ...form, address: e.target.value })} /></Field>
-            <Field label={<>Email <span style={{ fontWeight: 400, color: "var(--fg-3)" }}>· for your records</span></>} htmlFor="c-email"><Input id="c-email" type="email" value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} /></Field>
+            <Field label="Address" htmlFor="c-addr" help="Printed under the email, one line per row, exactly as written."><Textarea id="c-addr" rows={4} value={form.address} onChange={(e) => setForm({ ...form, address: e.target.value })} /></Field>
+            <Field label={<>Email <span style={{ fontWeight: 400, color: "var(--fg-3)" }}>· printed under the attention line</span></>} htmlFor="c-email"><Input id="c-email" type="email" value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} /></Field>
             <div style={{ display: "flex", justifyContent: "space-between", gap: 10, paddingTop: 8, borderTop: "1px solid var(--line)" }}>
               {sel !== "new" ? <button type="button" className="btn btn-danger" onClick={archive}>Archive</button> : <span />}
               <div style={{ display: "flex", gap: 10 }}><button type="button" className="btn btn-ghost" onClick={() => setSel(null)}>Cancel</button><button className="btn btn-primary" disabled={busy}>{sel === "new" ? "Add client" : "Save client"}</button></div>

@@ -15,6 +15,14 @@ const DESC_TEXT_W = COLS.desc - 4 + 8; // may run 8pt into the empty side of "Wo
 const txt = (size: number, lh = 1.333, bold = false, extra?: CSSProperties): CSSProperties =>
   ({ fontSize: size, lineHeight: lh, fontWeight: bold ? 700 : 400, transform: `translateY(${((1.1997 - lh) / 2).toFixed(4)}em)`, ...extra });
 
+/* Under the client name: attention, email, then the address lines (same rule as client_lines in backend/app/pdf.py). */
+function clientBlock(attention: string, email: string, address: string) {
+  const addr = address.split("\n").map((l) => l.trim()).filter(Boolean);
+  const mail = email.trim();
+  const showMail = mail && !addr.some((l) => l.toLowerCase() === mail.toLowerCase());
+  return [attention.trim(), showMail ? mail : "", ...addr].filter(Boolean);
+}
+
 function Cell({ w, align = "center", head, children }: { w: number; align?: "left" | "center"; head?: boolean; children: ReactNode }) {
   return (
     <div style={{ flex: `0 0 ${w}px`, paddingLeft: align === "left" ? 4 : 0, paddingTop: head ? 4.1 : 0, textAlign: align }}>
@@ -39,7 +47,7 @@ export function PdfSheet({ draft, settings, client, updating, highlight, flying,
   const t = totals(draft.items, draft.tax_rate);
   const m = (v: number) => moneyPlain(v, cur);
   const showLink = !!draft.payment_link && URL_RE.test(draft.payment_link) && (settings?.show_payment_link ?? true);
-  const clientLines = client ? [client.attention, ...client.address.split("\n")].map((l) => l.trim()).filter(Boolean) : [];
+  const clientLines = client ? clientBlock(client.attention, client.email, client.address) : [];
   const seller = settings ? [settings.business_name, ...settings.business_address.split("\n"), settings.business_email, settings.tax_id].map((l) => l.trim()).filter(Boolean) : [];
   const bank = bankLines(settings);
   const pages = Math.max(1, Math.ceil((height - 0.5) / PAGE_H)); // the PDF repeats the table header per page; close enough for a label
