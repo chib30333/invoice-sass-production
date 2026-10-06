@@ -17,7 +17,7 @@ const features = [
   { title: "Due date that follows", body: "Issued plus your terms, shown as a link under the field. Edit it by hand and it unlinks; one click relinks it.", icon: "link" },
   { title: "Pay-by-link, optional", body: "Paste a payment URL and the PDF prints a “Pay via link” line. Leave it empty and the line disappears.", icon: "arrowRight" },
   { title: "Draft autosave", body: "Every change is saved 1.4 seconds after you stop typing. A quiet “Saved” tells you so; nothing nags.", icon: "check" },
-  { title: "Command palette", body: "Press ⌘K from anywhere: new invoice, download, jump to a client or a setting. Two keystrokes to anything.", icon: "command" },
+  { title: "Command palette", body: "Press Ctrl+K from anywhere: new invoice, download, jump to a client or a setting. Two keystrokes to anything.", icon: "command" },
   { title: "Reduced motion, honoured", body: "Every animation has a fallback that keeps the state change and drops the movement. Hit targets 44px on touch.", icon: "shield" },
 ];
 

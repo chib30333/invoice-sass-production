@@ -14,6 +14,8 @@ const paths: Record<string, string> = {
   chevronLeft: "M15 6l-6 6 6 6",
   chevronRight: "M9 6l6 6-6 6",
   chevronDown: "M6 9l6 6 6-6",
+  chevronUp: "M6 15l6-6 6 6",
+  trash: "M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3",
   arrowRight: "M5 12h14m-5-5l5 5-5 5",
   link: "M10 14a4 4 0 010-5.7l2.3-2.3a4 4 0 115.7 5.7L17 12.7M14 10a4 4 0 010 5.7l-2.3 2.3a4 4 0 11-5.7-5.7L7 11.3",
   warning: "M12 3a9 9 0 100 18 9 9 0 000-18zM12 8v5m0 3v.5",
